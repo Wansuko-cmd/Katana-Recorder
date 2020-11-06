@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_navigation"
+    app:startDestination="@id/navigation_detail_show">
+
+    <fragment
+        android:id="@+id/navigation_detail_show"
+        android:name="com.wsr.katanarecorder.ui.detail.DetailShowFragment"
+        android:label="navigation_detail_show"
+        tools:layout="@layout/fragment_detail_show">
+
+    </fragment>
+
+</navigation>

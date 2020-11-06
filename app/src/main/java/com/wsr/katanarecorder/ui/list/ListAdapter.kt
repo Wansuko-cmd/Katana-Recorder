@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.db.SampleModel
+import com.wsr.katanarecorder.repository.Repository
 
 class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
-    private val data: List<SampleModel> = SampleDB().getData()
+    private val data: List<SampleModel> = Repository().getAll()
+
+    var clickTitle: (title: String) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,5 +25,8 @@ class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.title.text = data[position].title
+        holder.title.setOnClickListener{
+            clickTitle(holder.title.text.toString())
+        }
     }
 }
