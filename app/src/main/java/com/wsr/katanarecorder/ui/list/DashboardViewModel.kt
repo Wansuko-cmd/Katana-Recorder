@@ -1,4 +1,4 @@
-package com.wsr.katanarecorder.ui.dashboard
+package com.wsr.katanarecorder.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
