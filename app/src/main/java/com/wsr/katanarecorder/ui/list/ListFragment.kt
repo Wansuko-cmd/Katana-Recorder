@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
@@ -32,6 +33,7 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         listAdapter = ListAdapter()
 
         this.recyclerView = list_recycler_view
@@ -46,5 +48,9 @@ class ListFragment : Fragment() {
             intent.putExtra("Title", title)
             startActivity(intent)
         }
+
+        viewModel.list.observe(viewLifecycleOwner, {list ->
+            list?.let{listAdapter.setList(it)}
+        })
     }
 }

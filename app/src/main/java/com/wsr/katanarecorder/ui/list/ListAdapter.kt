@@ -9,7 +9,7 @@ import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.repository.Repository
 
 class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
-    private val data: List<SampleModel> = Repository().getAll()
+    private var data: MutableList<SampleModel> = mutableListOf()
 
     var clickTitle: (title: String) -> Unit = {}
 
@@ -28,5 +28,9 @@ class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
         holder.title.setOnClickListener{
             clickTitle(holder.title.text.toString())
         }
+    }
+
+    internal fun setList(lists: MutableList<SampleModel>){
+        data = lists
     }
 }
