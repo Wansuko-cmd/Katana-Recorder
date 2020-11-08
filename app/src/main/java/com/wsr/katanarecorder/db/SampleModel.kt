@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 data class SampleModel(
+    val id: Int,
     val title: String
 )
 
 class SampleDB{
-    private val test1 = SampleModel("title1")
-    private val test2 = SampleModel("title2")
-    private val test3 = SampleModel("title3")
+    private val test1 = SampleModel(0, "title1")
+    private val test2 = SampleModel(1, "title2")
+    private val test3 = SampleModel(2, "title3")
 
     private val data: MutableLiveData<MutableList<SampleModel>> by lazy{
         MutableLiveData<MutableList<SampleModel>>()

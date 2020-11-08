@@ -1,4 +1,4 @@
-package com.wsr.katanarecorder.ui.list
+package com.wsr.katanarecorder.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

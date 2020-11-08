@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.ui.detail.DetailActivity
-import com.wsr.katanarecorder.ui.detail.DetailShowFragment
+import com.wsr.katanarecorder.viewModel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment() {
@@ -43,9 +42,9 @@ class ListFragment : Fragment() {
             adapter = listAdapter
         }
 
-        listAdapter.clickTitle = {title ->
+        listAdapter.clickTitle = {id ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra("Title", title)
+            intent.putExtra("ID", id)
             startActivity(intent)
         }
 

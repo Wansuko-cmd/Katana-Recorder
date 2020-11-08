@@ -10,7 +10,10 @@
         android:name="com.wsr.katanarecorder.ui.detail.DetailShowFragment"
         android:label="navigation_detail_show"
         tools:layout="@layout/fragment_detail_show">
-
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
 
 </navigation>
