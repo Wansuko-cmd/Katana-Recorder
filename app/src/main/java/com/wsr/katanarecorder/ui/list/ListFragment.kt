@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.ui.detail.DetailActivity
-import com.wsr.katanarecorder.viewModel.ListViewModel
+import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment() {

@@ -5,6 +5,9 @@ plugins {
 
     //safeArgs
     id 'androidx.navigation.safeargs.kotlin'
+
+    //kapt
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,6 +37,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    //データバインディングを有効化
+    dataBinding {
+        enabled = true
+    }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -56,4 +68,10 @@ dependencies {
     //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    //epoxyを導入するためのやつ
+    def epoxy_version = "3.9.0"
+    implementation "com.airbnb.android:epoxy:${epoxy_version}"
+    implementation "com.airbnb.android:epoxy-databinding:${epoxy_version}"
+    kapt "com.airbnb.android:epoxy-processor:${epoxy_version}"
 }

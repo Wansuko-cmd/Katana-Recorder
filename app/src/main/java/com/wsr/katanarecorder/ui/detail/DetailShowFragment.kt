@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.wsr.katanarecorder.R
+import com.wsr.katanarecorder.db.SampleModel
+import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.fragment_detail_show.*
 
 class DetailShowFragment: Fragment(){
 
     private val args: DetailShowFragmentArgs by navArgs()
+    private lateinit var infoList: SampleModel
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +30,13 @@ class DetailShowFragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        show_title.text = args.id.toString()
+        val id: Int = args.id
+        viewModel =  ViewModelProviders.of(this).get(ListViewModel::class.java)
+        viewModel.list.observe(viewLifecycleOwner, {list ->
+            list?.let{
+                infoList = if(list.find{id == it.id} != null) list.find{id == it.id}!!
+                else SampleModel(-1, "Not Found","","","","","","","","","","")
+            }
+        })
     }
 }

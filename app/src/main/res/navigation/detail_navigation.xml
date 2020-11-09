@@ -10,6 +10,23 @@
         android:name="com.wsr.katanarecorder.ui.detail.DetailShowFragment"
         android:label="navigation_detail_show"
         tools:layout="@layout/fragment_detail_show">
+        <action
+            android:id="@+id/show_detail_to_edit_detail"
+            app:destination="@id/navigation_detail_edit"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_detail_edit"
+        android:name="com.wsr.katanarecorder.ui.detail.DetailEditFragment"
+        android:label="navigation_detail_edit"
+        tools:layout="@layout/fragment_detail_edit">
+        <action
+            android:id="@+id/back_to_show_detail"
+            app:popUpTo="@id/navigation_detail_show"/>
         <argument
             android:name="id"
             app:argType="integer"
