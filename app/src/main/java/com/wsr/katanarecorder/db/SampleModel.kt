@@ -35,12 +35,12 @@ data class SampleModel(
 class SampleDB{
     private val test1 = SampleModel(0,
         "備前１", "太刀", "備前青江派","室町前期", "７９ｃｍ",
-        "２．４ｃｍ", "丁子", "柾目", "小丸返る", "生ぶ", "特になし")
-    private val test2 = SampleModel(0,
+        "２．４ｃｍ", "丁子", "柾目", "小丸返る", "生ぶ", "こちらは備前長船刀剣博物館にて貯蔵されている一振り。室町前期の太刀でありながら生ぶであり、大変貴重なものとなっている。")
+    private val test2 = SampleModel(1,
         "備前２", "脇差", "備前長船","室町後期", "４４ｃｍ",
         "１．３ｃｍ", "互の目丁子", "杢目", "地蔵", "磨き上げ", "特になし")
-    private val test3 = SampleModel(0,
-        "備前１", "打ち刀", "小反り派","室町中期", "７２ｃｍ",
+    private val test3 = SampleModel(2,
+        "備前３", "打ち刀", "小反り派","室町中期", "７２ｃｍ",
         "２．６ｃｍ", "直刃", "柾目", "火焔", "生ぶ", "特になし")
 
     private val data: MutableLiveData<MutableList<SampleModel>> by lazy{

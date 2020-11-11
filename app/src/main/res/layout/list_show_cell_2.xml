@@ -3,6 +3,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="kind"
+            type="String" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,9 +22,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@{title}"
             android:textSize="80sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{kind}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="etc..."/>
 
     </LinearLayout>
 

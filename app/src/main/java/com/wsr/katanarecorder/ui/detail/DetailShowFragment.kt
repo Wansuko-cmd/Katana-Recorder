@@ -7,15 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.fragment_detail_show.*
 
 class DetailShowFragment: Fragment(){
+    private var recyclerView: RecyclerView? = null
 
     private val args: DetailShowFragmentArgs by navArgs()
-    private lateinit var infoList: SampleModel
+    private var infoList: SampleModel = SampleModel(-1,"re","","","","","","","","","","")
     private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
@@ -31,12 +34,26 @@ class DetailShowFragment: Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val id: Int = args.id
+
+        val controller = DetailEpoxyController()
+        controller.setData(infoList)
+
         viewModel =  ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, {list ->
             list?.let{
-                infoList = if(list.find{id == it.id} != null) list.find{id == it.id}!!
-                else SampleModel(-1, "Not Found","","","","","","","","","","")
+                if(list.find{id == it.id} != null) {
+                    infoList = list.find{id == it.id}!!
+                    controller.setData(infoList)
+                }
+
             }
         })
+
+        recyclerView = show_detail_recycler_view
+        recyclerView?.apply{
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = controller.adapter
+        }
     }
 }
