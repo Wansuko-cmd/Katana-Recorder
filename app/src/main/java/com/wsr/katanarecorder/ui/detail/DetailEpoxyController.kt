@@ -11,7 +11,17 @@ class DetailEpoxyController : TypedEpoxyController<SampleModel>() {
     override fun buildModels(data: SampleModel) {
         //val list: List<String> = listOf("刃文", "地鉄", "帽子", "茎", "備考")
 
-        val list = mapOf<String, String>("刃文" to data.hamon, "地鉄" to data.zigane, "帽子" to data.edge, "茎" to data.grip, "備考" to data.remarks)
+        val list = mapOf(
+            "産地" to data.from,
+            "時代" to data.age,
+            "刃長" to data.length,
+            "反り" to data.warp,
+            "刃文" to data.hamon,
+            "地鉄" to data.zigane,
+            "帽子" to data.edge,
+            "茎" to data.grip,
+            "備考" to data.remarks
+        )
 
         val pare = listOf<setPare>(setPare(data.from, data.age), setPare(data.length, data.warp))
 
