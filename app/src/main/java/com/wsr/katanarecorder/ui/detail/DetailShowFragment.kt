@@ -25,6 +25,6 @@ class DetailShowFragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        show_title.text = args.id.toString()
+        val vg = requireActivity().findViewById<View>(R.id.table_layout)
     }
 }
