@@ -7,10 +7,6 @@
         <variable
             name="title"
             type="String" />
-
-        <variable
-            name="kind"
-            type="String" />
     </data>
 
     <LinearLayout
@@ -23,17 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{title}"
-            android:textSize="80sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             tools:text="Title"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{kind}"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:text="etc..."/>
 
     </LinearLayout>
 

@@ -12,13 +12,14 @@ class DetailEpoxyController : TypedEpoxyController<SampleModel>() {
         //val list: List<String> = listOf("刃文", "地鉄", "帽子", "茎", "備考")
 
         val list = mapOf(
+            "種類" to data.kind,
             "産地" to data.from,
             "時代" to data.age,
             "刃長" to data.length,
             "反り" to data.warp,
             "刃文" to data.hamon,
             "地鉄" to data.zigane,
-            "帽子" to data.edge,
+            "鋩子" to data.edge,
             "茎" to data.grip,
             "備考" to data.remarks
         )
@@ -27,7 +28,6 @@ class DetailEpoxyController : TypedEpoxyController<SampleModel>() {
 
         ListShowCell2BindingModel_()
             .title(data.title)
-            .kind(data.kind)
             .id(modelCountBuiltSoFar)
             .addTo(this)
 

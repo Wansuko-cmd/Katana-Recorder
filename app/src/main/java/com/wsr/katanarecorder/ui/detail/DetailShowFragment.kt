@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
@@ -49,10 +50,13 @@ class DetailShowFragment: Fragment(){
             }
         })
 
+        val divider = DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation)
+
         recyclerView = show_detail_recycler_view
         recyclerView?.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
+            addItemDecoration(divider)
             adapter = controller.adapter
         }
     }
