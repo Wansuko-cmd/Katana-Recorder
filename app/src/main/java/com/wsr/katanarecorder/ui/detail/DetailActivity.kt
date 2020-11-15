@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.wsr.katanarecorder.R
+import com.wsr.katanarecorder.ui.detail.show.DetailShowFragmentArgs
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,6 +15,9 @@ class DetailActivity: AppCompatActivity() {
         //表示するIDの取得
         val id = intent.getIntExtra("ID", -1)
         val args = DetailShowFragmentArgs(id)
+
+        //toolbarの設定
+        detail_toolbar.inflateMenu(R.menu.detail_show_menu)
 
         //FragmentにIDを渡す
         val navController = supportFragmentManager

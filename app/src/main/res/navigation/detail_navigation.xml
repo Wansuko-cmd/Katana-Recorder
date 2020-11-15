@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_detail_show"
-        android:name="com.wsr.katanarecorder.ui.detail.DetailShowFragment"
+        android:name="com.wsr.katanarecorder.ui.detail.show.DetailShowFragment"
         android:label="navigation_detail_show"
         tools:layout="@layout/fragment_detail_show">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_detail_edit"
-        android:name="com.wsr.katanarecorder.ui.detail.DetailEditFragment"
+        android:name="com.wsr.katanarecorder.ui.detail.edit.DetailEditFragment"
         android:label="navigation_detail_edit"
         tools:layout="@layout/fragment_detail_edit">
         <action
