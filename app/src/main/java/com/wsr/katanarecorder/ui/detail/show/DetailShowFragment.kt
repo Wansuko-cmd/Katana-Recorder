@@ -71,8 +71,9 @@ class DetailShowFragment: Fragment() {
 
     private fun setToolbar() {
         val toolbar = requireActivity().detail_toolbar
-        toolbar.menu.setGroupVisible(R.id.edit_menu_group, true)
-        toolbar.setOnMenuItemClickListener() { menuItem ->
+        toolbar.menu.setGroupVisible(R.id.show_menu_group, true)
+        toolbar.menu.setGroupVisible(R.id.edit_menu_group, false)
+        toolbar.setOnMenuItemClickListener{ menuItem ->
             when (menuItem.itemId) {
                 R.id.edit_menu -> {
                     val action = DetailShowFragmentDirections.showDetailToEditDetail(args.id)

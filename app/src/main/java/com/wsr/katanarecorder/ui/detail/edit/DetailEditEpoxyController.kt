@@ -3,34 +3,25 @@ package com.wsr.katanarecorder.ui.detail.edit
 import com.airbnb.epoxy.TypedEpoxyController
 import com.wsr.katanarecorder.ListEditCell2BindingModel_
 import com.wsr.katanarecorder.ListEditCell3BindingModel_
-import com.wsr.katanarecorder.db.SampleModel
+import com.wsr.katanarecorder.view_model.EditViewModel
 
-class DetailEditEpoxyController : TypedEpoxyController<SampleModel>(){
-    override fun buildModels(data: SampleModel?) {
-        if(data == null) return
-        val list = mapOf(
-            "種類" to data.kind,
-            "産地" to data.from,
-            "時代" to data.age,
-            "刃長" to data.length,
-            "反り" to data.warp,
-            "刃文" to data.hamon,
-            "地鉄" to data.zigane,
-            "鋩子" to data.edge,
-            "茎" to data.grip,
-            "備考" to data.remarks
-        )
+class DetailEditEpoxyController : TypedEpoxyController<EditViewModel>() {
+
+    override fun buildModels(editViewModel: EditViewModel) {
+        val list = editViewModel.getAsMap()
 
         ListEditCell2BindingModel_()
-            .title(data.title)
+            .title(list["銘"])
+            .watcher(DetailEditTextWatcher("銘", editViewModel))
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
-        list.forEach{
+        list.forEach {
             ListEditCell3BindingModel_()
                 .item(it.key)
                 .content(it.value)
-                .id(modelCountBuiltSoFar)
+                .watcher(DetailEditTextWatcher(it.key, editViewModel))
+                .id(it.key)
                 .addTo(this)
         }
     }

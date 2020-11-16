@@ -3,12 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group
-        android:id="@+id/edit_menu_group">
+        android:id="@+id/show_menu_group">
         <item
             android:id="@+id/edit_menu"
             android:title="edit"
             android:icon="@drawable/ic_edit"
             app:showAsAction="ifRoom"
             />
+    </group>
+
+    <group
+        android:id="@+id/edit_menu_group">
+        <item
+            android:id="@+id/save"
+            android:title="save"
+            android:icon="@drawable/ic_save"
+            app:showAsAction="ifRoom"/>
     </group>
 </menu>
