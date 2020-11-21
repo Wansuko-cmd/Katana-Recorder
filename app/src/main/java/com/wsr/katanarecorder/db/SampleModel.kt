@@ -13,7 +13,7 @@ length:刃長
 warp:反り
 hamon:刃文
 zigane:地鉄
-edge:鋩子
+edge:帽子
 grip:茎
 remarks:備考
  */

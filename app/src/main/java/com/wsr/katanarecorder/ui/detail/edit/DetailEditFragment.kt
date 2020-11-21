@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.db.SampleModel
-import com.wsr.katanarecorder.ui.detail.show.DetailShowEpoxyController
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.fragment_detail_edit.*
-import kotlinx.android.synthetic.main.fragment_detail_show.*
 
 class DetailEditFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
@@ -51,7 +48,7 @@ class DetailEditFragment : Fragment() {
                 if (list.find { id == it.id } != null) {
                     infoList = list.find { id == it.id }!!
                     setListValue(infoList)
-                    controller.setData(editViewModel)
+                    controller.setData(requireActivity(), editViewModel)
                 }
             }
         })
@@ -59,7 +56,7 @@ class DetailEditFragment : Fragment() {
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
 
         controller = DetailEditEpoxyController()
-        controller.setData(editViewModel)
+        controller.setData(requireActivity(), editViewModel)
 
         val divider = DividerItemDecoration(
             requireContext(),
@@ -90,14 +87,14 @@ class DetailEditFragment : Fragment() {
 
     private fun setListValue(value: SampleModel){
         editViewModel.setValue("銘", value.title)
-        editViewModel.setValue("種類", value.kind)
+        editViewModel.setValue("種別", value.kind)
         editViewModel.setValue("産地", value.from)
         editViewModel.setValue("時代", value.age)
         editViewModel.setValue("刃長", value.length)
         editViewModel.setValue("反り", value.warp)
         editViewModel.setValue("刃文", value.hamon)
         editViewModel.setValue("地鉄", value.zigane)
-        editViewModel.setValue("鋩子", value.edge)
+        editViewModel.setValue("帽子", value.edge)
         editViewModel.setValue("茎", value.grip)
         editViewModel.setValue("備考", value.remarks)
     }
