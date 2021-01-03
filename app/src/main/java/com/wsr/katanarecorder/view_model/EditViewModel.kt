@@ -5,25 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import com.wsr.katanarecorder.db.SampleModel
 
 class EditViewModel(application: Application) : AndroidViewModel(application){
-    private var list =  mutableMapOf(
-        "銘" to "",
-        "種別" to "",
-        "産地" to "",
-        "時代" to "",
-        "刃長" to "",
-        "反り" to "",
-        "刃文" to "",
-        "地鉄" to "",
-        "帽子" to "",
-        "茎" to "",
-        "備考" to ""
-    )
+    private var status: SampleModel = SampleModel(0, "", mutableMapOf())
 
-    fun setValue(key: String, value: String){
-        list[key] = value
+    fun setStatus(value: SampleModel){
+        this.status = value
     }
 
-    fun getAsMap(): Map<String, String>{
-        return list
+    fun setValue(key: String, value: String){
+        if(status.value[key] != null) status.value[key] = value
+        else status.value[key] = value
+    }
+
+    fun getStatus(): SampleModel{
+        return status
     }
 }

@@ -17,38 +17,36 @@ edge:帽子
 grip:茎
 remarks:備考
  */
+
 data class SampleModel(
     val id: Int,
     val title: String,
-    val kind: String,
-    val from: String,
-    val age: String,
-    val length: String,
-    val warp: String,
-    val hamon: String,
-    val zigane: String,
-    val edge: String,
-    val grip: String,
-    val remarks: String
+    val value: MutableMap<String, String>
 )
 
 class SampleDB{
-    private val test1 = SampleModel(0,
-        "備前長船盛光", "太刀", "備前長船派","室町中期", "７９ｃｍ",
-        "２．４ｃｍ", "丁子", "柾目", "小丸返る", "生ぶ", "こちらは備前長船刀剣博物館にて貯蔵されている一振り。室町前期の太刀でありながら生ぶであり、大変貴重なものとなっている。")
-    private val test2 = SampleModel(1,
-        "備前２", "脇差", "備前長船","室町後期", "４４ｃｍ",
-        "１．３ｃｍ", "互の目丁子", "杢目", "地蔵", "磨き上げ", "特になし")
-    private val test3 = SampleModel(2,
-        "備前３", "打ち刀", "小反り派","室町中期", "７２ｃｍ",
-        "２．６ｃｍ", "直刃", "柾目", "火焔", "生ぶ", "特になし")
+    private val test1 = SampleModel(0, "備前長船盛光",
+        mutableMapOf(
+            "銘" to "備前長船盛光",
+            "種別" to "太刀",
+            "産地" to "備前長船派",
+            "時代" to "室町中期",
+            "刃長" to "７９ｃｍ",
+            "反り" to "２．４ｃｍ",
+            "刃文" to "丁子",
+            "地鉄" to "柾目",
+            "帽子" to "小丸返る",
+            "茎" to "生ぶ",
+            "備考" to "こちらは備前長船刀剣博物館にて貯蔵されている一振り。室町前期の太刀でありながら生ぶであり、大変貴重なものとなっている。"
+        )
+    )
 
     private val data: MutableLiveData<MutableList<SampleModel>> by lazy{
         MutableLiveData<MutableList<SampleModel>>()
     }
 
     init{
-        data.value = mutableListOf(test1, test2, test3)
+        data.value = mutableListOf(test1)
     }
 
     fun getAll(): LiveData<MutableList<SampleModel>>{

@@ -12,7 +12,7 @@ import com.wsr.katanarecorder.view_model.EditViewModel
 class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>() {
 
     override fun buildModels(activity: Activity, editViewModel: EditViewModel) {
-        val list = editViewModel.getAsMap()
+        val status = editViewModel.getStatus()
 
         ListEditCell1BindingModel_()
             .src(R.drawable.ic_add_a_photo)
@@ -21,12 +21,12 @@ class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>
             .addTo(this)
 
         ListEditCell2BindingModel_()
-            .title(list["銘"])
+            .title(status.title)
             .watcher(DetailEditTextWatcher("銘", editViewModel))
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
-        list.forEach {
+        status.value.forEach {
             ListEditCell3BindingModel_()
                 .item(it.key)
                 .content(it.value)

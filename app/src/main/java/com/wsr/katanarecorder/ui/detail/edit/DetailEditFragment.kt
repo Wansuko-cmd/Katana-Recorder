@@ -21,7 +21,7 @@ class DetailEditFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private val args: DetailEditFragmentArgs by navArgs()
-    private var infoList: SampleModel = SampleModel(-1, "", "", "", "", "", "", "", "", "", "", "")
+    private var infoList: SampleModel = SampleModel(-1, "", mutableMapOf())
     private lateinit var viewModel: ListViewModel
     private lateinit var editViewModel: EditViewModel
     private lateinit var controller: DetailEditEpoxyController
@@ -43,13 +43,11 @@ class DetailEditFragment : Fragment() {
         setToolbar()
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, { list ->
-            list?.let {
-                if (list.find { id == it.id } != null) {
-                    infoList = list.find { id == it.id }!!
-                    setListValue(infoList)
-                    controller.setData(requireActivity(), editViewModel)
-                }
+        viewModel.list.observe(viewLifecycleOwner, { newStatus ->
+            val status: SampleModel? = newStatus.find{it.id == id}
+            if(status != null){
+                editViewModel.setStatus(status)
+                controller.setData(requireActivity(), editViewModel)
             }
         })
 
@@ -83,19 +81,5 @@ class DetailEditFragment : Fragment() {
             }
             true
         }
-    }
-
-    private fun setListValue(value: SampleModel){
-        editViewModel.setValue("銘", value.title)
-        editViewModel.setValue("種別", value.kind)
-        editViewModel.setValue("産地", value.from)
-        editViewModel.setValue("時代", value.age)
-        editViewModel.setValue("刃長", value.length)
-        editViewModel.setValue("反り", value.warp)
-        editViewModel.setValue("刃文", value.hamon)
-        editViewModel.setValue("地鉄", value.zigane)
-        editViewModel.setValue("帽子", value.edge)
-        editViewModel.setValue("茎", value.grip)
-        editViewModel.setValue("備考", value.remarks)
     }
 }
