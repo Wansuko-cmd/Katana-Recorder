@@ -17,9 +17,9 @@ import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.fragment_detail_show.*
 
+//詳細画面の動作部分
 class DetailShowFragment: Fragment() {
     private var recyclerView: RecyclerView? = null
-
     private val args: DetailShowFragmentArgs by navArgs()
     private var infoList: SampleModel = SampleModel(-1, "", mutableMapOf())
     private lateinit var viewModel: ListViewModel
@@ -39,18 +39,13 @@ class DetailShowFragment: Fragment() {
         val id: Int = args.id
 
         val controller = DetailShowEpoxyController()
-        controller.setData(infoList)
 
         setToolbar()
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, { list ->
-            list?.let {
-                if (list.find { id == it.id } != null) {
-                    infoList = list.find { id == it.id }!!
-                    controller.setData(infoList)
-                }
-
+        viewModel.list.observe(viewLifecycleOwner, { status ->
+            status.find{ id == it.id}?.let {
+                controller.setData(it)
             }
         })
 

@@ -21,7 +21,6 @@ class DetailEditFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private val args: DetailEditFragmentArgs by navArgs()
-    private var infoList: SampleModel = SampleModel(-1, "", mutableMapOf())
     private lateinit var viewModel: ListViewModel
     private lateinit var editViewModel: EditViewModel
     private lateinit var controller: DetailEditEpoxyController
@@ -44,9 +43,8 @@ class DetailEditFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, { newStatus ->
-            val status: SampleModel? = newStatus.find{it.id == id}
-            if(status != null){
-                editViewModel.setStatus(status)
+            newStatus.find{it.id == id}?.let{
+                editViewModel.setStatus(it)
                 controller.setData(requireActivity(), editViewModel)
             }
         })
@@ -76,7 +74,7 @@ class DetailEditFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.save -> {
-
+                    editViewModel.save()
                 }
             }
             true

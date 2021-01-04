@@ -5,6 +5,7 @@ import com.wsr.katanarecorder.ListShowCell2BindingModel_
 import com.wsr.katanarecorder.ListShowCell3BindingModel_
 import com.wsr.katanarecorder.db.SampleModel
 
+//詳細画面のUIを出すところ
 class DetailShowEpoxyController : TypedEpoxyController<SampleModel>() {
     override fun buildModels(data: SampleModel?) {
         if(data == null) return
