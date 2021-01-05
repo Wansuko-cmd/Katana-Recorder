@@ -16,7 +16,7 @@ class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>
 
         ListEditCell1BindingModel_()
             .src(R.drawable.ic_add_a_photo)
-            .cameraController(DetailEditCameraController(activity))
+            .detailEditImageSetter(editViewModel.getDetailEditImageSetter())
             .id(modelCountBuiltSoFar)
             .addTo(this)
 

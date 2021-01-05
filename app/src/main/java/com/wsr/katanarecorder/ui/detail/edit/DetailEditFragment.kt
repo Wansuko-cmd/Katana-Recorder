@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
+import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
@@ -24,6 +25,7 @@ class DetailEditFragment : Fragment() {
     private lateinit var viewModel: ListViewModel
     private lateinit var editViewModel: EditViewModel
     private lateinit var controller: DetailEditEpoxyController
+    lateinit var observer: DetailEditImageSetter
 
 
     override fun onCreateView(
@@ -50,6 +52,9 @@ class DetailEditFragment : Fragment() {
         })
 
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
+        observer = DetailEditImageSetter(requireActivity(), editViewModel)
+        lifecycle.addObserver(observer)
+        editViewModel.setDetailEditImageSetter(observer)
 
         controller = DetailEditEpoxyController()
         controller.setData(requireActivity(), editViewModel)
@@ -74,6 +79,8 @@ class DetailEditFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.save -> {
+                    observer.selectImage()
+                    println(SampleDB.getDatabase().data.value)
                     editViewModel.save()
                 }
             }

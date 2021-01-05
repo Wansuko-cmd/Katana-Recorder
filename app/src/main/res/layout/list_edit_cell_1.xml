@@ -10,8 +10,8 @@
             />
 
         <variable
-            name="cameraController"
-            type="com.wsr.katanarecorder.ui.detail.edit.DetailEditCameraController" />
+            name="detailEditImageSetter"
+            type="com.wsr.katanarecorder.ui.detail.edit.DetailEditImageSetter" />
     </data>
 
     <LinearLayout
@@ -24,7 +24,7 @@
             app:imageResource="@{src}"
             android:layout_height="200dp"
             android:layout_width="match_parent"
-            android:onClick="@{() -> cameraController.setOnClickListener()}"
+            android:onClick="@{() -> detailEditImageSetter.selectImage()}"
             tools:src="@drawable/ic_add_a_photo"/>
 
     </LinearLayout>

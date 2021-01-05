@@ -20,7 +20,7 @@ class SampleDB{
         )
     )
 
-    private val data: MutableLiveData<MutableList<SampleModel>> by lazy{
+    val data: MutableLiveData<MutableList<SampleModel>> by lazy{
         MutableLiveData<MutableList<SampleModel>>()
     }
 
