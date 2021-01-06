@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.db.SampleDB
-import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -51,12 +50,14 @@ class DetailEditFragment : Fragment() {
             }
         })
 
+        controller = DetailEditEpoxyController()
+
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
-        observer = DetailEditImageSetter(requireActivity(), editViewModel)
+        observer = DetailEditImageSetter(requireActivity(), editViewModel, controller)
         lifecycle.addObserver(observer)
         editViewModel.setDetailEditImageSetter(observer)
 
-        controller = DetailEditEpoxyController()
+
         controller.setData(requireActivity(), editViewModel)
 
         val divider = DividerItemDecoration(

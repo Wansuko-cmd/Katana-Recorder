@@ -25,6 +25,7 @@
             android:layout_height="200dp"
             android:layout_width="match_parent"
             android:onClick="@{() -> detailEditImageSetter.selectImage()}"
+            app:imageUrl="@{detailEditImageSetter.getInputStream()}"
             tools:src="@drawable/ic_add_a_photo"/>
 
     </LinearLayout>
