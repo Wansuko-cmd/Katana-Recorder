@@ -14,12 +14,10 @@ import java.io.InputStream
 class DetailEditImageSetter(
     private val activity: FragmentActivity,
     private val editViewModel: EditViewModel,
-    private val controller: DetailEditEpoxyController
+    private var resetController: (Uri) -> Unit
 ) : DefaultLifecycleObserver {
     lateinit var getContent: ActivityResultLauncher<String>
     private val registry = activity.activityResultRegistry
-
-    private var url: Uri? = null
 
     override fun onCreate(owner: LifecycleOwner) {
         getContent =
@@ -30,11 +28,8 @@ class DetailEditImageSetter(
                 ActivityResultCallback {
                     it?.let{
                         Log.d("result", "fragment: $it")
-                        url = it
-                        editViewModel.setUrl(it)
+                        resetController(it)
                     }
-                    controller.setData(activity, editViewModel)
-                    println("Here")
                 })
     }
 

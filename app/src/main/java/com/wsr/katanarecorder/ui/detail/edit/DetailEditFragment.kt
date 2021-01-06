@@ -1,5 +1,6 @@
 package com.wsr.katanarecorder.ui.detail.edit
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,7 @@ class DetailEditFragment : Fragment() {
     private lateinit var viewModel: ListViewModel
     private lateinit var editViewModel: EditViewModel
     private lateinit var controller: DetailEditEpoxyController
-    lateinit var observer: DetailEditImageSetter
+    private lateinit var observer: DetailEditImageSetter
 
 
     override fun onCreateView(
@@ -50,14 +51,12 @@ class DetailEditFragment : Fragment() {
             }
         })
 
-        controller = DetailEditEpoxyController()
-
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
-        observer = DetailEditImageSetter(requireActivity(), editViewModel, controller)
+        observer = DetailEditImageSetter(requireActivity(), editViewModel, resetController)
         lifecycle.addObserver(observer)
         editViewModel.setDetailEditImageSetter(observer)
 
-
+        controller = DetailEditEpoxyController()
         controller.setData(requireActivity(), editViewModel)
 
         val divider = DividerItemDecoration(
@@ -80,12 +79,18 @@ class DetailEditFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.save -> {
-                    observer.selectImage()
                     println(SampleDB.getDatabase().data.value)
                     editViewModel.save()
                 }
             }
             true
         }
+    }
+
+    private val resetController: (url: Uri) -> Unit = {
+        editViewModel.setUrl(it)
+        controller = DetailEditEpoxyController()
+        controller.setData(activity, editViewModel)
+        recyclerView!!.adapter = controller.adapter
     }
 }

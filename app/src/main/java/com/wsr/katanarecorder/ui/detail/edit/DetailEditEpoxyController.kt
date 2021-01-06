@@ -15,7 +15,6 @@ class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>
         val status = editViewModel.getStatus()
 
         ListEditCell1BindingModel_()
-            //.src(R.drawable.ic_add_a_photo)
             .detailEditImageSetter(editViewModel.getDetailEditImageSetter())
             .id(modelCountBuiltSoFar)
             .addTo(this)
