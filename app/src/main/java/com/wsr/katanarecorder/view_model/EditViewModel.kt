@@ -11,9 +11,8 @@ import java.io.InputStream
 
 //編集画面で、編集しているものを保存しておくところ
 class EditViewModel(application: Application) : AndroidViewModel(application){
-    private var status: SampleModel = SampleModel(0, "", mutableMapOf())
+    private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
     private lateinit var detailEditImageSetter: DetailEditImageSetter
-    private var url: Uri? = null
 
     //全部の値を一括挿入するところ
     fun setStatus(value: SampleModel){
@@ -31,7 +30,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun setUrl(url: Uri){
-        this.url = url
+        this.status.url = url
     }
 
     //ここで管理している値を全部返り値に持つ関数
@@ -44,7 +43,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun getInputStream(activity: Activity): InputStream?{
-        url?.let{
+        status.url?.let{
             return activity.contentResolver?.openInputStream(it)
         }
         return null

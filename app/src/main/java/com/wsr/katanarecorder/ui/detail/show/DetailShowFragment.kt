@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_detail_show.*
 class DetailShowFragment: Fragment() {
     private var recyclerView: RecyclerView? = null
     private val args: DetailShowFragmentArgs by navArgs()
-    private var infoList: SampleModel = SampleModel(-1, "", mutableMapOf())
     private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(

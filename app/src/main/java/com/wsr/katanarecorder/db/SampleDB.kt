@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class SampleDB{
-    private val test1 = SampleModel(0, "備前長船盛光",
+    private val test1 = SampleModel(0, "備前長船盛光", null,
         mutableMapOf(
             "銘" to "備前長船盛光",
             "種別" to "太刀",

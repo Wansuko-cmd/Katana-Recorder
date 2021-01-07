@@ -1,5 +1,6 @@
 package com.wsr.katanarecorder.ui.detail.edit
 
+import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
