@@ -1,0 +1,30 @@
+@startuml
+title 選択された画像を保存する流れ
+
+start
+
+:SAFを利用して画像を選択してもらう;
+
+:選択された画像のURLを取得;
+note left
+    EditViewModelのurlに一時保存しておく
+end note
+
+:画像を反映;
+
+if(保存するかどうか) then (yes)
+    if(別の画像が保存されていた場合) then (yes)
+        :その画像を消去する;
+     else(no)
+     endif
+
+    :画像を外部ストレージに保存;
+    :外部ストレージのURLを保存;
+    note left
+        EditViewModelを利用してUri形式で保存する
+    end note
+else (no)
+    :選択された画像のURLを破棄;
+endif
+end
+@enduml

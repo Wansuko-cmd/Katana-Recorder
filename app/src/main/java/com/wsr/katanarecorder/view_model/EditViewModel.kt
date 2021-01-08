@@ -7,16 +7,21 @@ import androidx.lifecycle.AndroidViewModel
 import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.ui.detail.edit.DetailEditImageSetter
+import java.io.FileOutputStream
 import java.io.InputStream
 
 //編集画面で、編集しているものを保存しておくところ
 class EditViewModel(application: Application) : AndroidViewModel(application){
+
+    //将来的にはここはidでとってくるようにする
     private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
     private lateinit var detailEditImageSetter: DetailEditImageSetter
+    private var url: Uri? = null
 
     //全部の値を一括挿入するところ
     fun setStatus(value: SampleModel){
         this.status = value
+        this.url = status.url
     }
 
     //個々の値を更新、もしくは挿入するところ
@@ -29,8 +34,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         this.detailEditImageSetter = instance
     }
 
+    //外部からファイルを取得したときのみ使用
     fun setUrl(url: Uri){
-        this.status.url = url
+        this.url = url
     }
 
     //ここで管理している値を全部返り値に持つ関数
@@ -43,13 +49,14 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun getInputStream(activity: Activity): InputStream?{
-        status.url?.let{
+        url?.let{
             return activity.contentResolver?.openInputStream(it)
         }
         return null
     }
 
     fun save(){
+        status.url = this.url
         val instance = SampleDB.getDatabase()
         instance.save(status)
     }
