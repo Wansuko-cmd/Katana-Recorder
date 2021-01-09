@@ -10,8 +10,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.wsr.katanarecorder.view_model.EditViewModel
 import java.io.InputStream
 
+//画像を取り出すときに使うクラス
 class DetailEditImageSetter(
-    private val activity: FragmentActivity,
+    activity: FragmentActivity,
     private val editViewModel: EditViewModel,
     private var resetController: (Uri) -> Unit
 ) : DefaultLifecycleObserver {
@@ -32,10 +33,12 @@ class DetailEditImageSetter(
                 })
     }
 
+    //画像選択をするための関数
     fun selectImage() {
         getContent.launch("image/*")
     }
 
+    //editViewModelに保管されている画像のinputStream型を取るための関数
     fun getInputStream(): InputStream?{
         editViewModel.getInputStream()?.let{
             return it

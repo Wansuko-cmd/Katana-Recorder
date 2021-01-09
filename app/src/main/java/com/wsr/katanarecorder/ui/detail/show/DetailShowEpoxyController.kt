@@ -11,11 +11,13 @@ class DetailShowEpoxyController : TypedEpoxyController<SampleModel>() {
         if(data == null) return
         val status = data.value
 
+        //銘
         ListShowCell2BindingModel_()
             .title(data.title)
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
+        //詳細
         status.forEach{
             ListShowCell3BindingModel_()
                 .item(it.key)

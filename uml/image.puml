@@ -10,6 +10,8 @@ note left
     EditViewModelのurl（文字列型）に一時保存しておく
 end note
 
+:トリミングする;
+
 :画像を反映;
 
 if(保存するかどうか) then (yes)

@@ -13,7 +13,6 @@ import com.wsr.katanarecorder.ui.detail.show.DetailShowFragmentArgs
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity: AppCompatActivity() {
-    val REQUEST_PERMISSION = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

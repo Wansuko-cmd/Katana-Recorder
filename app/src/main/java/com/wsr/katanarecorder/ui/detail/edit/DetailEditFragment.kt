@@ -17,6 +17,7 @@ import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.fragment_detail_edit.*
 
+//編集画面用のフラグメント
 class DetailEditFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
 
@@ -38,6 +39,8 @@ class DetailEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //編集するもののid
         val id = args.id
 
         setToolbar()
@@ -51,15 +54,20 @@ class DetailEditFragment : Fragment() {
         })
 
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
+
+        //SAFをフラグメントで使うための準備
         observer = DetailEditImageSetter(requireActivity(), editViewModel, resetController)
         lifecycle.addObserver(observer)
+
+        //editViewModelの中の変数の初期化
         editViewModel.setDetailEditImageSetter(observer)
         editViewModel.setActivity(requireActivity())
 
+        //Epoxyのcontrollerを設定
         controller = DetailEditEpoxyController()
         controller.setData(requireActivity(), editViewModel)
 
-
+        //枠ごとに線を引く処理
         val divider = DividerItemDecoration(
             requireContext(),
             LinearLayoutManager(requireContext()).orientation
@@ -73,6 +81,7 @@ class DetailEditFragment : Fragment() {
         }
     }
 
+    //ツールバーの設定
     private fun setToolbar(){
         val toolbar = requireActivity().detail_toolbar
         toolbar.menu.setGroupVisible(R.id.show_menu_group, false)
@@ -88,6 +97,7 @@ class DetailEditFragment : Fragment() {
         }
     }
 
+    //コントローラーのインスタンスを再生成して、再描画してもらうための処理
     private val resetController: (url: Uri) -> Unit = {
         editViewModel.setUrl(it)
         controller = DetailEditEpoxyController()

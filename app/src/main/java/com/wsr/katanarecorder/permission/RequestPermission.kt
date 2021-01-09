@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 
+//画像の許可を取るためのもの。SAFを利用することになったので将来的に消す
 class RequestPermission(private val activity: Activity) {
     private val REQUEST_PERMISSION: Int = 10
 

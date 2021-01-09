@@ -9,22 +9,26 @@ import com.wsr.katanarecorder.ListEditCell3BindingModel_
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.view_model.EditViewModel
 
+//編集画面用のEpoxyController
 class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>() {
 
     override fun buildModels(activity: Activity, editViewModel: EditViewModel) {
         val status = editViewModel.getStatus()
 
+        //画像
         ListEditCell1BindingModel_()
             .detailEditImageSetter(editViewModel.getDetailEditImageSetter())
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
+        //銘
         ListEditCell2BindingModel_()
             .title(status.title)
             .watcher(DetailEditTextWatcher("銘", editViewModel))
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
+        //詳細
         status.value.forEach {
             ListEditCell3BindingModel_()
                 .item(it.key)

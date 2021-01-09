@@ -35,8 +35,10 @@ class DetailShowFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //表示している刀のid
         val id: Int = args.id
 
+        //Epoxyのコントローラーのインスタンスの形成
         val controller = DetailShowEpoxyController()
 
         setToolbar()
@@ -63,6 +65,7 @@ class DetailShowFragment: Fragment() {
         }
     }
 
+    //ツールバーの設定
     private fun setToolbar() {
         val toolbar = requireActivity().detail_toolbar
         toolbar.menu.setGroupVisible(R.id.show_menu_group, true)

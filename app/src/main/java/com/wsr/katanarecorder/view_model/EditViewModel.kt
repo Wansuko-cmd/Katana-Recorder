@@ -18,11 +18,9 @@ import java.util.*
 //編集画面で、編集しているものを保存しておくところ
 class EditViewModel(application: Application) : AndroidViewModel(application){
 
-    //将来的にはここはidでとってくるようにする
-    private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
     private lateinit var detailEditImageSetter: DetailEditImageSetter
     private lateinit var activity: Activity
-
+    private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
     private var url: Uri? = null
 
     //全部の値を一括挿入するところ
@@ -36,6 +34,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         else status.value[key] = value
     }
 
+    //画像をセットするための関数を代入するところ
     fun setDetailEditImageSetter(instance: DetailEditImageSetter){
         this.detailEditImageSetter = instance
     }
@@ -45,6 +44,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         this.url = url
     }
 
+    //Activityをセットするところ
     fun setActivity(activity: Activity){
         this.activity = activity
     }
@@ -54,10 +54,12 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         return status
     }
 
+    //画像をセットするための関数を返り値に持つ関数
     fun getDetailEditImageSetter(): DetailEditImageSetter{
         return detailEditImageSetter
     }
 
+    //表示する画像のinputStream型を返す関数
     fun getInputStream(): InputStream?{
         return when {
             this.url != null -> {
@@ -74,6 +76,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         }
     }
 
+    //変更を保存するための関数
     fun save(){
         val filename = UUID.randomUUID().toString() + ".jpg"
         val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -92,9 +95,13 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
                 var len: Int
                 while(inputStream.read(buf).let{len = it; it != -1}){
                     output.write(buf, 0, len)
-                    //len = inputStream!!.read(buf)
                 }
                 output.flush()
+            }
+
+            status.url?.let{
+                val deleteFile = File(path, it)
+                deleteFile.delete()
             }
 
             status.url = filename
@@ -104,6 +111,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         instance.save(status)
     }
 
+    //書けるかどうかを確認するための関数
     private fun isExternalStorageWritable(): Boolean{
         val state = Environment.getExternalStorageState()
         return Environment.MEDIA_MOUNTED == state

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.startActivityForResult
 
+//カメラを使う時のためのクラス
 class DetailEditCameraController(private val activity: Activity, ) {
     private val RESULT_PICK_IMAGEFILE = 1001
 
