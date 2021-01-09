@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
-import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -55,9 +54,11 @@ class DetailEditFragment : Fragment() {
         observer = DetailEditImageSetter(requireActivity(), editViewModel, resetController)
         lifecycle.addObserver(observer)
         editViewModel.setDetailEditImageSetter(observer)
+        editViewModel.setActivity(requireActivity())
 
         controller = DetailEditEpoxyController()
         controller.setData(requireActivity(), editViewModel)
+
 
         val divider = DividerItemDecoration(
             requireContext(),
@@ -79,7 +80,7 @@ class DetailEditFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.save -> {
-                    println(SampleDB.getDatabase().data.value)
+                    //println(SampleDB.getDatabase().data.value)
                     editViewModel.save()
                 }
             }
