@@ -7,7 +7,7 @@ start
 
 :選択された画像のURLを取得;
 note left
-    EditViewModelのurlに一時保存しておく
+    EditViewModelのurl（文字列型）に一時保存しておく
 end note
 
 :画像を反映;

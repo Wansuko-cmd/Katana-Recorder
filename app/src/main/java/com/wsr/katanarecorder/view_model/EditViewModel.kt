@@ -22,25 +22,12 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
     private lateinit var detailEditImageSetter: DetailEditImageSetter
     private lateinit var activity: Activity
-    private var inputStream: InputStream? = null
 
     private var url: Uri? = null
 
     //全部の値を一括挿入するところ
     fun setStatus(value: SampleModel) {
         this.status = value
-        value.url?.let{
-            //val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
-            val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File(path, it)
-            this.inputStream = FileInputStream(file)
-            Log.d("inputStream", "set as $file")
-        }
-        /*val filename = "8486dc51-7c7d-4728-a922-5786ffb5126d.png"
-        val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val file = File(path, filename)
-        Log.d("path", file.toString())
-        return FileInputStream(file)*/
     }
 
     //個々の値を更新、もしくは挿入するところ
@@ -56,7 +43,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     //外部からファイルを取得したときのみ使用
     fun setUrl(url: Uri){
         this.url = url
-        this.inputStream = activity.contentResolver?.openInputStream(url)
     }
 
     fun setActivity(activity: Activity){
@@ -73,19 +59,19 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun getInputStream(): InputStream?{
-        /*val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
-        val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val file = File(path, filename)
-        return FileInputStream(file)*/
-        url?.let{
-            return activity.contentResolver?.openInputStream(it)
+        return when {
+            this.url != null -> {
+                activity.contentResolver?.openInputStream(this.url!!)
+            }
+            status.url != null -> {
+                val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                val file = File(path, status.url!!)
+                FileInputStream(file)
+            }
+            else -> {
+                null
+            }
         }
-        return null
-
-        inputStream?.let{
-            return inputStream
-        }
-        return null
     }
 
     fun save(){
@@ -110,11 +96,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
                 }
                 output.flush()
             }
-
-            /*status.url?.let{
-                val deleteFile = File(path, it)
-                deleteFile.delete()
-            }*/
 
             status.url = filename
         }
