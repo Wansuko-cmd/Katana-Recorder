@@ -24,21 +24,23 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     private lateinit var activity: Activity
     private var inputStream: InputStream? = null
 
+    private var url: Uri? = null
+
     //全部の値を一括挿入するところ
     fun setStatus(value: SampleModel) {
         this.status = value
-        value.url.let{
-            val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
+        value.url?.let{
+            //val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
             val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File(path, filename)
+            val file = File(path, it)
             this.inputStream = FileInputStream(file)
             Log.d("inputStream", "set as $file")
         }
         /*val filename = "8486dc51-7c7d-4728-a922-5786ffb5126d.png"
-val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-val file = File(path, filename)
-Log.d("path", file.toString())
-return FileInputStream(file)*/
+        val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val file = File(path, filename)
+        Log.d("path", file.toString())
+        return FileInputStream(file)*/
     }
 
     //個々の値を更新、もしくは挿入するところ
@@ -53,6 +55,7 @@ return FileInputStream(file)*/
 
     //外部からファイルを取得したときのみ使用
     fun setUrl(url: Uri){
+        this.url = url
         this.inputStream = activity.contentResolver?.openInputStream(url)
     }
 
@@ -70,10 +73,15 @@ return FileInputStream(file)*/
     }
 
     fun getInputStream(): InputStream?{
-        val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
+        /*val filename = "fe2853f3-6d09-44da-964e-c78ae2623497.jpg"
         val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val file = File(path, filename)
-        return FileInputStream(file)
+        return FileInputStream(file)*/
+        url?.let{
+            return activity.contentResolver?.openInputStream(it)
+        }
+        return null
+
         inputStream?.let{
             return inputStream
         }
@@ -91,13 +99,14 @@ return FileInputStream(file)*/
             val inputStream = getInputStream()
             val output = FileOutputStream(file)
 
-            val DEFAULT_BUFFER_SIZE = 102400*4
+            val DEFAULT_BUFFER_SIZE = 10240 * 4
             val buf = ByteArray(DEFAULT_BUFFER_SIZE)
 
             if (inputStream != null) {
                 var len: Int
                 while(inputStream.read(buf).let{len = it; it != -1}){
                     output.write(buf, 0, len)
+                    //len = inputStream!!.read(buf)
                 }
                 output.flush()
             }
