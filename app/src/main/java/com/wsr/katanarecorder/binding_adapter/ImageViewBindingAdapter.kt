@@ -16,7 +16,7 @@ object ImageViewBindingAdapter {
         inputStream?.let{
             val image = BitmapFactory.decodeStream(it)
             this.setImageBitmap(image)
-            Log.d("imageURL", "Reflected to $inputStream")
+            Log.i("imageURL", "Reflected to $inputStream")
             return
         }
         this.setImageResource(R.drawable.ic_add_a_photo)

@@ -2,6 +2,7 @@ package com.wsr.katanarecorder.ui.detail.edit
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,8 @@ class DetailEditFragment : Fragment() {
             addItemDecoration(divider)
             adapter = controller.adapter
         }
+
+        Log.i("edit id:", id.toString())
     }
 
     //ツールバーの設定
@@ -89,7 +92,6 @@ class DetailEditFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.save -> {
-                    //println(SampleDB.getDatabase().data.value)
                     editViewModel.save()
                 }
             }

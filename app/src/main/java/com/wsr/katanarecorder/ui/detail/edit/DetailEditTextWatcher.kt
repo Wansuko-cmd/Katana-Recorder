@@ -15,7 +15,5 @@ class DetailEditTextWatcher(val key: String, private val editViewModel: EditView
 
     override fun afterTextChanged(p0: Editable?) {
         editViewModel.setValue(key, p0.toString())
-        Log.i("key", key)
-        Log.i("List", p0.toString())
     }
 }

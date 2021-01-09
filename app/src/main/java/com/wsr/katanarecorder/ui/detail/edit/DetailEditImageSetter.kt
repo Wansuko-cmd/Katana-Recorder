@@ -20,6 +20,7 @@ class DetailEditImageSetter(
     private val registry = activity.activityResultRegistry
 
     override fun onCreate(owner: LifecycleOwner) {
+        //SAFの呼び出しや、洗濯後の挙動を設定
         getContent =
             registry.register(
                 "key",
@@ -27,7 +28,6 @@ class DetailEditImageSetter(
                 ActivityResultContracts.GetContent(),
                 {
                     it?.let{
-                        Log.d("result", "fragment: $it")
                         resetController(it)
                     }
                 })

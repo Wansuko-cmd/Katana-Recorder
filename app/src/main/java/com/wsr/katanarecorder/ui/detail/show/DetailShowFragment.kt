@@ -1,6 +1,7 @@
 package com.wsr.katanarecorder.ui.detail.show
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +64,8 @@ class DetailShowFragment: Fragment() {
             addItemDecoration(divider)
             adapter = controller.adapter
         }
+
+        Log.i("show id:", id.toString())
     }
 
     //ツールバーの設定

@@ -32,6 +32,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     fun setValue(key: String, value: String){
         if(status.value[key] != null) status.value[key] = value
         else status.value[key] = value
+        Log.i("set value", "key: ${key}, value: $value")
     }
 
     //画像をセットするための関数を代入するところ
@@ -42,6 +43,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     //外部からファイルを取得したときのみ使用
     fun setUrl(url: Uri){
         this.url = url
+        Log.i("selected image", url.toString())
     }
 
     //Activityをセットするところ
@@ -78,37 +80,43 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
 
     //変更を保存するための関数
     fun save(){
+
+        //画像の保存
         val filename = UUID.randomUUID().toString() + ".jpg"
         val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val file = File(path, filename)
 
-        Log.d("セーブURL",file.toString())
-
         if(isExternalStorageWritable()){
-            val inputStream = getInputStream()
             val output = FileOutputStream(file)
 
             val DEFAULT_BUFFER_SIZE = 10240 * 4
             val buf = ByteArray(DEFAULT_BUFFER_SIZE)
 
-            if (inputStream != null) {
+            getInputStream()?.let{
                 var len: Int
-                while(inputStream.read(buf).let{len = it; it != -1}){
+                while(it.read(buf).let{len = it; it != -1}){
                     output.write(buf, 0, len)
                 }
                 output.flush()
+
+                Log.i("saved URL", file.toString())
             }
 
+            //もともと設定してあった画像の削除
             status.url?.let{
                 val deleteFile = File(path, it)
                 deleteFile.delete()
             }
 
+            //新しい画像名を設定
             status.url = filename
         }
 
+        //詳細の保存
         val instance = SampleDB.getDatabase()
         instance.save(status)
+
+        Log.i("saved id", status.id.toString())
     }
 
     //書けるかどうかを確認するための関数
