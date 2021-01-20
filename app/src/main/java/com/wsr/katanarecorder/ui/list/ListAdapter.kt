@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
-import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.db.SampleModel
-import com.wsr.katanarecorder.repository.Repository
 
 class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
     private var data: MutableList<SampleModel> = mutableListOf()

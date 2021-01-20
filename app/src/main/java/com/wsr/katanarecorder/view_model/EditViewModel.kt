@@ -13,6 +13,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.lang.Exception
 import java.util.*
 
 //編集画面で、編集しているものを保存しておくところ
@@ -65,7 +66,11 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     fun getInputStream(): InputStream?{
         return when {
             this.url != null -> {
-                activity.contentResolver?.openInputStream(this.url!!)
+                try{
+                    activity.contentResolver?.openInputStream(this.url!!)
+                }catch(e: Exception) {
+                    null
+                }
             }
             status.url != null -> {
                 val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -89,12 +94,11 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         if(isExternalStorageWritable()){
             val output = FileOutputStream(file)
 
-            val DEFAULT_BUFFER_SIZE = 10240 * 4
             val buf = ByteArray(DEFAULT_BUFFER_SIZE)
 
-            getInputStream()?.let{
+            getInputStream()?.let{ inputStream ->
                 var len: Int
-                while(it.read(buf).let{len = it; it != -1}){
+                while(inputStream.read(buf).let{len = it; it != -1}){
                     output.write(buf, 0, len)
                 }
                 output.flush()

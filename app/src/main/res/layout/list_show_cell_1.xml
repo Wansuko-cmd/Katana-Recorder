@@ -12,14 +12,10 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Image"
-            android:textSize="100sp"
-            android:textStyle="bold"/>
-
+        <ImageView
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            tools:src="@drawable/ic_add_a_photo"/>
     </LinearLayout>
 
 </layout>

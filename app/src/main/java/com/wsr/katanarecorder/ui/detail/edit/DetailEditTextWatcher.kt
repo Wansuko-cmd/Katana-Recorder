@@ -2,7 +2,6 @@ package com.wsr.katanarecorder.ui.detail.edit
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import com.wsr.katanarecorder.view_model.EditViewModel
 
 //文字の変更を認識するためのクラス

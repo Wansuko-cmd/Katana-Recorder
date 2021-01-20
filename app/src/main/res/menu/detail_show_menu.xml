@@ -6,7 +6,7 @@
         android:id="@+id/show_menu_group">
         <item
             android:id="@+id/edit_menu"
-            android:title="edit"
+            android:title="@string/edit"
             android:icon="@drawable/ic_edit"
             app:showAsAction="ifRoom"
             />
@@ -16,7 +16,7 @@
         android:id="@+id/edit_menu_group">
         <item
             android:id="@+id/save"
-            android:title="save"
+            android:title="@string/save"
             android:icon="@drawable/ic_save"
             app:showAsAction="ifRoom"/>
     </group>

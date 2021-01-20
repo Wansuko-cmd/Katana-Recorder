@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat.startActivityForResult
 
 //カメラを使う時のためのクラス
-class DetailEditCameraController(private val activity: Activity, ) {
+class DetailEditCameraController(private val activity: Activity) {
     private val RESULT_PICK_IMAGEFILE = 1001
 
     fun setOnClickListener(){
@@ -18,7 +18,7 @@ class DetailEditCameraController(private val activity: Activity, ) {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "image/*"
         }
-        startActivityForResult(activity, intent, RESULT_PICK_IMAGEFILE, Bundle());
+        startActivityForResult(activity, intent, RESULT_PICK_IMAGEFILE, Bundle())
 
         Toast.makeText(activity, "成功", Toast.LENGTH_SHORT).show()
         /*if(RequestPermission(activity).setPermission()){

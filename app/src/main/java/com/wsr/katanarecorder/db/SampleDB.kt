@@ -49,7 +49,7 @@ class SampleDB{
             val tempInstance = INSTANCE
             if(tempInstance != null) return tempInstance
             synchronized(this){
-                val instance: SampleDB = SampleDB()
+                val instance = SampleDB()
                 INSTANCE = instance
                 return instance
             }

@@ -2,11 +2,9 @@ package com.wsr.katanarecorder.ui.detail.edit
 
 import android.app.Activity
 import com.airbnb.epoxy.Typed2EpoxyController
-import com.airbnb.epoxy.TypedEpoxyController
 import com.wsr.katanarecorder.ListEditCell1BindingModel_
 import com.wsr.katanarecorder.ListEditCell2BindingModel_
 import com.wsr.katanarecorder.ListEditCell3BindingModel_
-import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.view_model.EditViewModel
 
 //編集画面用のEpoxyController
