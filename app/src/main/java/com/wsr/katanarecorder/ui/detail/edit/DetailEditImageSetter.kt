@@ -11,15 +11,13 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.wsr.katanarecorder.BuildConfig
 import com.wsr.katanarecorder.view_model.EditViewModel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.InputStream
 import java.util.*
 
 //画像を取り出すときに使うクラス
 class DetailEditImageSetter(
-    val activity: FragmentActivity,
+    private val activity: FragmentActivity,
     private val editViewModel: EditViewModel,
     private var resetController: (Uri) -> Unit
 ) : DefaultLifecycleObserver {
@@ -28,8 +26,10 @@ class DetailEditImageSetter(
 
     private val registry = activity.activityResultRegistry
 
+    private lateinit var uri: Uri
+
     override fun onCreate(owner: LifecycleOwner) {
-        //SAFの呼び出しや、洗濯後の挙動を設定
+        //SAFの呼び出しや、選択後の挙動を設定
         getContent =
             registry.register(
                 "key",
@@ -42,10 +42,12 @@ class DetailEditImageSetter(
 
         dispatchTakePicture =
             registry.register(
-                "key",
+                "keys",
                 owner,
-                ActivityResultContracts.TakePicture()
-            ){}
+                ActivityResultContracts.TakePicture()){
+                    Log.d("TEST", it.toString())
+                    resetController(uri)
+                }
     }
 
     //画像選択をするための関数
@@ -56,16 +58,15 @@ class DetailEditImageSetter(
         val path = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val file = File(path, filename)
 
-        val uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", file)
+        uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", file)
 
-        takePicture(uri)
+        takePicture()
     }
 
-    private fun takePicture(uri: Uri) {
+    private fun takePicture() {
         dispatchTakePicture.launch(uri)
         Log.d("Uri", uri.toString())
 
-        resetController(uri)
     }
 
     //editViewModelに保管されている画像のinputStream型を取るための関数
