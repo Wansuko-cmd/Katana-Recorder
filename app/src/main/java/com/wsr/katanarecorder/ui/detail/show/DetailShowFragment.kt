@@ -1,5 +1,6 @@
 package com.wsr.katanarecorder.ui.detail.show
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.wsr.katanarecorder.MainActivity
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -37,6 +39,11 @@ class DetailShowFragment: Fragment() {
 
         //表示している刀のid
         val id: Int = args.id
+
+        if(id == -1 || id == -404) {
+            val intent =  Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+        }
 
         //Epoxyのコントローラーのインスタンスの形成
         val controller = DetailShowEpoxyController()

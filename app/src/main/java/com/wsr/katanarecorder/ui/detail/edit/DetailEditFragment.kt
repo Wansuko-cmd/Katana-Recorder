@@ -41,18 +41,37 @@ class DetailEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbar()
+
         //編集するもののid
         val id = args.id
 
-        setToolbar()
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, { newStatus ->
-            newStatus.find{it.id == id}?.let{
-                editViewModel.setStatus(it)
-                controller.setData(requireActivity(), editViewModel)
+
+        when(id){
+            -1 -> {
+                viewModel.list.observe(viewLifecycleOwner, { newStatus ->
+                    newStatus.find{it.id == id}?.let{
+                        editViewModel.setStatus(it)
+                        controller.setData(requireActivity(), editViewModel)
+                    }
+                })
             }
-        })
+            -404 -> {
+
+            }
+
+            else -> {
+                viewModel.list.observe(viewLifecycleOwner, { newStatus ->
+                    newStatus.find{it.id == id}?.let{
+                        editViewModel.setStatus(it)
+                        controller.setData(requireActivity(), editViewModel)
+                    }
+                })
+            }
+        }
+
 
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
 

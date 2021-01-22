@@ -1,0 +1,17 @@
+@startuml
+title アプリの全体の処理の流れ
+
+:RoomDatabase;
+
+:Repository;
+
+:ListViewModel;
+
+if () then
+    :DetailShowFragment;
+else
+    :EditViewModel;
+    :DetailEditFragment;
+
+
+@enduml

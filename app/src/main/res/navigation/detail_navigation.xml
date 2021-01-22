@@ -16,7 +16,7 @@
         <argument
             android:name="id"
             app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="-404"/>
     </fragment>
 
     <fragment
@@ -27,6 +27,20 @@
         <action
             android:id="@+id/back_to_show_detail"
             app:popUpTo="@id/navigation_detail_show"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-404"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="com.wsr.katanarecorder.ui.list.ListFragment"
+        android:label="navigation_list"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/list_to_edit_detail"
+            app:destination="@id/navigation_detail_edit"/>
         <argument
             android:name="id"
             app:argType="integer"

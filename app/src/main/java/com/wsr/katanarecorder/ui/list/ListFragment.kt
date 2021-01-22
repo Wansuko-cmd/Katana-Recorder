@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
@@ -51,5 +52,11 @@ class ListFragment : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, {list ->
             list?.let{listAdapter.setList(it)}
         })
+
+        add_fab.setOnClickListener{
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra("ID", -1)
+            startActivity(intent)
+        }
     }
 }
