@@ -3,7 +3,6 @@ package com.wsr.katanarecorder.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.wsr.katanarecorder.R
 import com.wsr.katanarecorder.ui.detail.show.DetailShowFragmentArgs
