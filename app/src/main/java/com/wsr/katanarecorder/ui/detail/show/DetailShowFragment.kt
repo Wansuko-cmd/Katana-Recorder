@@ -40,7 +40,7 @@ class DetailShowFragment: Fragment() {
         //表示している刀のid
         val id: Int = args.id
 
-        if(id == -1 || id == -404) {
+        if(id == -1) {
             val intent =  Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
         }

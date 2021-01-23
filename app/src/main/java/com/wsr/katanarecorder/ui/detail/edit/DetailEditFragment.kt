@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
+import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -49,28 +50,23 @@ class DetailEditFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
 
-        when(id){
-            -1 -> {
-                viewModel.list.observe(viewLifecycleOwner, { newStatus ->
-                    newStatus.find{it.id == id}?.let{
-                        editViewModel.setStatus(it)
-                        controller.setData(requireActivity(), editViewModel)
-                    }
-                })
+        viewModel.list.observe(viewLifecycleOwner, { newStatus ->
+            if(id == -1) {
+                editViewModel.setStatus(SampleModel(-1, "", null, mutableMapOf(
+                    "銘" to "",
+                    "種別" to "",
+                    "地鉄" to "",
+                    "刃文" to ""
+                )))
+            }else{
+                newStatus.find{it.id == id}?.let{
+                    editViewModel.setStatus(it)
+                }
             }
-            -404 -> {
 
-            }
 
-            else -> {
-                viewModel.list.observe(viewLifecycleOwner, { newStatus ->
-                    newStatus.find{it.id == id}?.let{
-                        editViewModel.setStatus(it)
-                        controller.setData(requireActivity(), editViewModel)
-                    }
-                })
-            }
-        }
+            controller.setData(requireActivity(), editViewModel)
+        })
 
 
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
