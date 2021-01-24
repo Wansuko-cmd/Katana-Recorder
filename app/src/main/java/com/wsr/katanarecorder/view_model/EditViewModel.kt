@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.wsr.katanarecorder.db.SampleDB
 import com.wsr.katanarecorder.db.SampleModel
+import com.wsr.katanarecorder.ui.detail.edit.DetailEditEpoxyController
+import com.wsr.katanarecorder.ui.detail.edit.DetailEditFragment
 import com.wsr.katanarecorder.ui.detail.edit.DetailEditImageSetter
 import java.io.File
 import java.io.FileInputStream
@@ -21,8 +23,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
 
     private lateinit var detailEditImageSetter: DetailEditImageSetter
     private lateinit var activity: Activity
+
     private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
-    private var url: Uri? = null
+    private var uri: Uri? = null
 
     //全部の値を一括挿入するところ
     fun setStatus(value: SampleModel) {
@@ -33,7 +36,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     fun setValue(key: String, value: String){
         if(status.value[key] != null) status.value[key] = value
         else status.value[key] = value
-        Log.i("set value", "key: ${key}, value: $value")
+        Log.i("セットする値", "key: ${key}, value: $value")
     }
 
     //画像をセットするための関数を代入するところ
@@ -42,14 +45,18 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     //外部からファイルを取得したときのみ使用
-    fun setUrl(url: Uri){
-        this.url = url
-        Log.i("selected image", url.toString())
+    fun setUrl(uri: Uri){
+        this.uri = uri
+        Log.i("選択された画像のurl", uri.toString())
     }
 
     //Activityをセットするところ
     fun setActivity(activity: Activity){
         this.activity = activity
+    }
+
+    fun addValue(key: String){
+        this.status.value[key] = ""
     }
 
     //ここで管理している値を全部返り値に持つ関数
@@ -65,9 +72,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     //表示する画像のinputStream型を返す関数
     fun getInputStream(): InputStream?{
         return when {
-            this.url != null -> {
+            this.uri != null -> {
                 try{
-                    activity.contentResolver?.openInputStream(this.url!!)
+                    activity.contentResolver?.openInputStream(this.uri!!)
                 }catch(e: Exception) {
                     null
                 }
@@ -103,7 +110,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
                 }
                 output.flush()
 
-                Log.i("saved URL", file.toString())
+                Log.i("セーブした画像のURL", file.toString())
             }
 
             //もともと設定してあった画像の削除
@@ -120,7 +127,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         val instance = SampleDB.getDatabase()
         instance.save(status)
 
-        Log.i("saved id", status.id.toString())
+        Log.i("セーブしたid", status.id.toString())
     }
 
     //書けるかどうかを確認するための関数

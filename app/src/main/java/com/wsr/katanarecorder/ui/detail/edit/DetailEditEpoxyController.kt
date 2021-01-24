@@ -2,15 +2,21 @@ package com.wsr.katanarecorder.ui.detail.edit
 
 import android.app.Activity
 import com.airbnb.epoxy.Typed2EpoxyController
+import com.airbnb.epoxy.Typed3EpoxyController
 import com.wsr.katanarecorder.ListEditCell1BindingModel_
 import com.wsr.katanarecorder.ListEditCell2BindingModel_
 import com.wsr.katanarecorder.ListEditCell3BindingModel_
+import com.wsr.katanarecorder.ListEditCell4BindingModel_
 import com.wsr.katanarecorder.view_model.EditViewModel
 
 //編集画面用のEpoxyController
-class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>() {
+class DetailEditEpoxyController : Typed3EpoxyController<Activity, EditViewModel, DetailEditAlertDialog>() {
 
-    override fun buildModels(activity: Activity, editViewModel: EditViewModel) {
+    override fun buildModels(
+        activity: Activity,
+        editViewModel: EditViewModel,
+        detailEditAlertDialog: DetailEditAlertDialog
+    ) {
         val status = editViewModel.getStatus()
 
         //画像
@@ -35,5 +41,11 @@ class DetailEditEpoxyController : Typed2EpoxyController<Activity, EditViewModel>
                 .id(modelCountBuiltSoFar)
                 .addTo(this)
         }
+
+        ListEditCell4BindingModel_()
+            .detailEditAlertDialog(detailEditAlertDialog)
+            .id(modelCountBuiltSoFar)
+            .addTo(this)
+
     }
 }

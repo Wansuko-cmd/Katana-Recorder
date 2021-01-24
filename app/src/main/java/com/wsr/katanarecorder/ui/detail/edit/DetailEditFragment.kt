@@ -1,11 +1,13 @@
 package com.wsr.katanarecorder.ui.detail.edit
 
+import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
@@ -28,6 +30,7 @@ class DetailEditFragment : Fragment() {
     private lateinit var editViewModel: EditViewModel
     private lateinit var controller: DetailEditEpoxyController
     private lateinit var observer: DetailEditImageSetter
+    private lateinit var detailEditAlertDialog: DetailEditAlertDialog
 
 
     override fun onCreateView(
@@ -47,6 +50,7 @@ class DetailEditFragment : Fragment() {
         //編集するもののid
         val id = args.id
 
+        Log.i("編集するid", id.toString())
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
 
@@ -65,9 +69,8 @@ class DetailEditFragment : Fragment() {
             }
 
 
-            controller.setData(requireActivity(), editViewModel)
+            controller.setData(requireActivity(), editViewModel, detailEditAlertDialog)
         })
-
 
         editViewModel = ViewModelProviders.of(this).get(EditViewModel::class.java)
 
@@ -81,7 +84,8 @@ class DetailEditFragment : Fragment() {
 
         //Epoxyのcontrollerを設定
         controller = DetailEditEpoxyController()
-        controller.setData(requireActivity(), editViewModel)
+        detailEditAlertDialog = DetailEditAlertDialog(requireActivity(), requireContext(), editViewModel, controller)
+        controller.setData(requireActivity(), editViewModel, detailEditAlertDialog)
 
         //枠ごとに線を引く処理
         val divider = DividerItemDecoration(
@@ -95,8 +99,6 @@ class DetailEditFragment : Fragment() {
             addItemDecoration(divider)
             adapter = controller.adapter
         }
-
-        Log.i("edit id:", id.toString())
     }
 
     //ツールバーの設定
@@ -118,7 +120,7 @@ class DetailEditFragment : Fragment() {
     private val resetController: (url: Uri) -> Unit = {
         editViewModel.setUrl(it)
         controller = DetailEditEpoxyController()
-        controller.setData(activity, editViewModel)
+        controller.setData(activity, editViewModel, detailEditAlertDialog)
         recyclerView!!.adapter = controller.adapter
     }
 }

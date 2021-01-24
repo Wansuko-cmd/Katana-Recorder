@@ -20,7 +20,7 @@ import java.util.*
 class DetailEditImageSetter(
     private val activity: FragmentActivity,
     private val editViewModel: EditViewModel,
-    private var resetController: (Uri) -> Unit
+    private var resetController: (Uri) -> Unit,
 ) : DefaultLifecycleObserver {
     private lateinit var getContent: ActivityResultLauncher<String>
     private lateinit var dispatchTakePicture: ActivityResultLauncher<Uri>
