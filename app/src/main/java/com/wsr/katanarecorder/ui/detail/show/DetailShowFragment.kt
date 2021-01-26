@@ -51,7 +51,7 @@ class DetailShowFragment: Fragment() {
         setToolbar()
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, { status ->
+        viewModel.katanaData.observe(viewLifecycleOwner, { status ->
             status.find{ id == it.id}?.let {
                 controller.setData(it)
             }

@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
-import com.wsr.katanarecorder.db.SampleModel
+import com.wsr.katanarecorder.db.KatanaData
 
 class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
-    private var data: MutableList<SampleModel> = mutableListOf()
+    private var data: MutableList<KatanaData> = mutableListOf()
 
     var clickTitle: (id:Int) -> Unit = {}
 
@@ -28,7 +28,7 @@ class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
         }
     }
 
-    internal fun setList(lists: MutableList<SampleModel>){
+    internal fun setList(lists: MutableList<KatanaData>){
         data = lists
     }
 }

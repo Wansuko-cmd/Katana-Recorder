@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 data class KatanaData(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "url") val url: String?,
+    @ColumnInfo(name = "url") var url: String?,
     @ColumnInfo(name = "value") val value: MutableMap<String, String>
 )

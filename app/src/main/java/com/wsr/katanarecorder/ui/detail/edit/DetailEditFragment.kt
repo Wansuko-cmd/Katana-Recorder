@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsr.katanarecorder.R
+import com.wsr.katanarecorder.db.KatanaData
 import com.wsr.katanarecorder.db.SampleModel
 import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
@@ -54,9 +55,9 @@ class DetailEditFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
 
-        viewModel.list.observe(viewLifecycleOwner, { newStatus ->
+        viewModel.katanaData.observe(viewLifecycleOwner, { newStatus ->
             if(id == -1) {
-                editViewModel.setStatus(SampleModel(-1, "", null, mutableMapOf(
+                editViewModel.setStatus(KatanaData(-1, "", null, mutableMapOf(
                     "銘" to "",
                     "種別" to "",
                     "地鉄" to "",

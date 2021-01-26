@@ -6,10 +6,7 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import com.wsr.katanarecorder.db.SampleDB
-import com.wsr.katanarecorder.db.SampleModel
-import com.wsr.katanarecorder.ui.detail.edit.DetailEditEpoxyController
-import com.wsr.katanarecorder.ui.detail.edit.DetailEditFragment
+import com.wsr.katanarecorder.db.KatanaData
 import com.wsr.katanarecorder.ui.detail.edit.DetailEditImageSetter
 import java.io.File
 import java.io.FileInputStream
@@ -24,11 +21,11 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     private lateinit var detailEditImageSetter: DetailEditImageSetter
     private lateinit var activity: Activity
 
-    private var status: SampleModel = SampleModel(0, "", null, mutableMapOf())
+    private var status: KatanaData = KatanaData(0, "", null, mutableMapOf())
     private var uri: Uri? = null
 
     //全部の値を一括挿入するところ
-    fun setStatus(value: SampleModel) {
+    fun setStatus(value: KatanaData) {
         this.status = value
     }
 
@@ -60,7 +57,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
     }
 
     //ここで管理している値を全部返り値に持つ関数
-    fun getStatus(): SampleModel{
+    fun getStatus(): KatanaData{
         return status
     }
 
@@ -124,8 +121,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         }
 
         //詳細の保存
-        val instance = SampleDB.getDatabase()
-        instance.save(status)
 
         Log.i("セーブしたid", status.id.toString())
     }

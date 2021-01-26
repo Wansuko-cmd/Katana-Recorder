@@ -48,8 +48,8 @@ class ListFragment : Fragment() {
             startActivity(intent)
         }
 
-        viewModel.list.observe(viewLifecycleOwner, {list ->
-            list?.let{listAdapter.setList(it)}
+        viewModel.katanaData.observe(viewLifecycleOwner, {katanaData ->
+            katanaData?.let{listAdapter.setList(it)}
         })
 
         add_fab.setOnClickListener{

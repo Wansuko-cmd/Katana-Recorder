@@ -26,7 +26,7 @@ abstract class KatanaDatabase : RoomDatabase(){
         }
 
         fun seeding(katanaDataDao: KatanaDataDao){
-            /*Completable.fromAction{
+            Completable.fromAction{
                 katanaDataDao.deleteAll()
 
                 katanaDataDao.insert(KatanaData(0, "備前長船盛光", null,
@@ -45,7 +45,7 @@ abstract class KatanaDatabase : RoomDatabase(){
                     )))
             }
                 .subscribeOn(Schedulers.io())
-                .subscribe()*/
+                .subscribe()
         }
     }
 
