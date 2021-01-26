@@ -14,7 +14,11 @@ class DetailEditAlertDialog(
     ) {
 
     fun addValue(){
-        val editText = EditText(context)
+
+        editViewModel.addValue("")
+        controller.setData(activity, editViewModel, this)
+
+        /*val editText = EditText(context)
 
         AlertDialog.Builder(activity)
             .setTitle("Test")
@@ -26,6 +30,6 @@ class DetailEditAlertDialog(
             }
             .setNegativeButton("no", null)
             .setCancelable(false)
-            .show()
+            .show()*/
     }
 }
