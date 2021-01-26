@@ -28,7 +28,8 @@ class ListAdapter :RecyclerView.Adapter<ListViewHolder>(){
         }
     }
 
-    internal fun setList(lists: MutableList<KatanaData>){
-        data = lists
+    internal fun setList(katanaData: MutableList<KatanaData>){
+        data = katanaData
+        notifyDataSetChanged()
     }
 }
