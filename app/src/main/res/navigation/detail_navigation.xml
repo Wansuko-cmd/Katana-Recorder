@@ -16,7 +16,7 @@
         <argument
             android:name="id"
             app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="0"/>
     </fragment>
 
     <fragment
@@ -30,7 +30,7 @@
         <argument
             android:name="id"
             app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="0"/>
     </fragment>
 
 </navigation>

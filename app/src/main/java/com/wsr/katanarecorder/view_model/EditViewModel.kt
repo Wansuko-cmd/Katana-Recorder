@@ -29,6 +29,10 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
         this.status = value
     }
 
+    fun setTitle(title: String){
+        status.title = title
+    }
+
     //個々の値を更新、もしくは挿入するところ
     fun setValue(key: String, value: String){
         if(status.value[key] != null) status.value[key] = value
@@ -58,6 +62,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application){
 
     //ここで管理している値を全部返り値に持つ関数
     fun getStatus(): KatanaData{
+        Log.d("getStatus", status.toString())
         return status
     }
 

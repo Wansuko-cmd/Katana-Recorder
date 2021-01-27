@@ -9,7 +9,7 @@ interface KatanaDataDao {
     fun getAll(): LiveData<MutableList<KatanaData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(katanaData: KatanaData)
+    fun insert(katanaData: KatanaData): Long
 
     @Update
     fun update(katanaData: KatanaData)

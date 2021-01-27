@@ -15,7 +15,7 @@ class DetailActivity: AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         //表示するIDの取得
-        val id = intent.getIntExtra("ID", -404)
+        val id = intent.getIntExtra("ID", 0)
         val args = DetailShowFragmentArgs(id)
 
         //toolbarの設定
@@ -30,7 +30,7 @@ class DetailActivity: AppCompatActivity() {
             .setPopUpTo(R.id.navigation_detail_edit, true)
             .build()
 
-        if(id == -1){
+        if(id == 0){
             val navGraph = navController.navInflater.inflate(R.navigation.detail_navigation)
 
             navController.graph = navGraph.apply{

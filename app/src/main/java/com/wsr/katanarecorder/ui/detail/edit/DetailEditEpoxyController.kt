@@ -28,7 +28,7 @@ class DetailEditEpoxyController : Typed3EpoxyController<Activity, EditViewModel,
         //銘
         ListEditCell2BindingModel_()
             .title(status.title)
-            .watcher(DetailEditTextWatcher("銘", editViewModel))
+            .watcher(DetailEditTextWatcher("title", editViewModel, 2))
             .id(modelCountBuiltSoFar)
             .addTo(this)
 
@@ -37,7 +37,7 @@ class DetailEditEpoxyController : Typed3EpoxyController<Activity, EditViewModel,
             ListEditCell3BindingModel_()
                 .item(it.key)
                 .content(it.value)
-                .watcher(DetailEditTextWatcher(it.key, editViewModel))
+                .watcher(DetailEditTextWatcher(it.key, editViewModel, 3))
                 .id(modelCountBuiltSoFar)
                 .addTo(this)
         }

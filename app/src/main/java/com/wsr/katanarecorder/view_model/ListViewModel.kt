@@ -8,6 +8,7 @@ import com.wsr.katanarecorder.db.*
 import com.wsr.katanarecorder.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 //詳細を表示するために使うViewModel
 class ListViewModel(application: Application) : AndroidViewModel(application){
@@ -19,8 +20,14 @@ class ListViewModel(application: Application) : AndroidViewModel(application){
         katanaData = repository.katanaData
     }
 
-    fun insert(katanaData: KatanaData) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(katanaData)
+    fun insert(katanaData: KatanaData): Int {
+        var id: Int = -1
+        runBlocking {
+            viewModelScope.launch(Dispatchers.IO) {
+                id = repository.insert(katanaData)
+            }
+        }
+        return id
     }
 
     fun update(katanaData: KatanaData) = viewModelScope.launch(Dispatchers.IO) {

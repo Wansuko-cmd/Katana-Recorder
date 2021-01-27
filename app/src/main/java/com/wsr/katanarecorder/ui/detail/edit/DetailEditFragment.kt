@@ -21,6 +21,7 @@ import com.wsr.katanarecorder.view_model.EditViewModel
 import com.wsr.katanarecorder.view_model.ListViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.fragment_detail_edit.*
+import kotlin.properties.Delegates
 
 //編集画面用のフラグメント
 class DetailEditFragment : Fragment() {
@@ -33,6 +34,8 @@ class DetailEditFragment : Fragment() {
     private lateinit var observer: DetailEditImageSetter
     private lateinit var detailEditAlertDialog: DetailEditAlertDialog
 
+    //idが使えないので、ここではidsとする
+    private var ids by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,22 +52,22 @@ class DetailEditFragment : Fragment() {
         setToolbar()
 
         //編集するもののid
-        val id = args.id
+        ids = args.id
 
-        Log.i("編集するid", id.toString())
+        Log.i("編集するid", ids.toString())
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
 
         viewModel.katanaData.observe(viewLifecycleOwner, { newStatus ->
-            if(id == -1) {
-                editViewModel.setStatus(KatanaData(-1, "", null, mutableMapOf(
+            if(ids == 0) {
+                editViewModel.setStatus(KatanaData(0, "", null, mutableMapOf(
                     "銘" to "",
                     "種別" to "",
                     "地鉄" to "",
                     "刃文" to ""
                 )))
             }else{
-                newStatus.find{it.id == id}?.let{
+                newStatus.find{it.id == ids}?.let{
                     editViewModel.setStatus(it)
                 }
             }
@@ -111,6 +114,12 @@ class DetailEditFragment : Fragment() {
             when(menuItem.itemId){
                 R.id.save -> {
                     editViewModel.save()
+                    if(ids != 0) viewModel.update(editViewModel.getStatus())
+                    else {
+                        val status = editViewModel.getStatus()
+                        Log.d("保存内容", status.toString())
+                        ids = viewModel.insert(status)
+                    }
                 }
             }
             true

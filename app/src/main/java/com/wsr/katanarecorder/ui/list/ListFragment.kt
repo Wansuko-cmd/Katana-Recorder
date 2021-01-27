@@ -54,7 +54,7 @@ class ListFragment : Fragment() {
 
         add_fab.setOnClickListener{
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra("ID", -1)
+            intent.putExtra("ID", 0)
             startActivity(intent)
         }
     }
