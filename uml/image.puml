@@ -1,4 +1,4 @@
-@startuml
+@start
 title 選択された画像を保存する流れ
 
 start
@@ -29,4 +29,4 @@ else (no)
     :選択された画像のURLを破棄;
 endif
 end
-@enduml
+@end
